@@ -1,0 +1,35 @@
+[prompts]
+joke = "讲一个关于{subject}的冷笑话，要求：1. 包含双关语 2. 不超过50字"
+
+[openai]
+api_key = "sk-xxx"
+base_url = "https://api.openai.com/v1"
+models = ["gpt-3.5-turbo", "gpt-4"]
+default_model = "gpt-4"
+temperature = 0.7
+
+[ali]
+api_key = "your api key"
+base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+models = ["qwen-plus", "qwen-max", "qwen-turbo"]
+default_model = "qwen-max"
+temperature = 0.5
+
+[openrouter]
+api_key = "your api key"
+base_url = "https://openrouter.ai/api/v1"
+models = ["deepseek/deepseek-chat-v3-0324:free", "qwen/qwq-32b:free", "qwen/qwen-2.5-7b-instruct:free", "qwen/qwen-2.5-vl-7b-instruct:free"] 
+default_model = "qwen/qwq-32b:free"
+
+[Vercel2Gemin]
+api_key = "your api key"
+base_url = "https://my-openai-gemini-jet-seven.vercel.app"
+models = ["gemini-2.0-flash", "gemini-2.5-pro-exp-03-25"]
+default_model = "gemini-2.0-flash"
+temperature = 0.5
+
+[google]
+api_key = "your api key"
+base_url = "https://generativelanguage.googleapis.com/v1beta/openai/"
+models = ["gemini-2.0-flash", "gemini-2.5-flash-preview-04-17"]
+default_model = "gemini-2.0-flash"
