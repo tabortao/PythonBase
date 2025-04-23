@@ -33,7 +33,7 @@ def convert_json_to_txt(json_file_path: str, output_file_path: str = None):
 
 def main():
     # 指定输入文件路径
-    book_name = "《谁来拉雪橇：速度的快慢》"
+    book_name = "《贪心的小妖怪捉鲸鱼：声音的传播》-gemini-ocr"
     # 修正：直接使用完整的json文件路径
     json_file = os.path.join("src", "output", f"{book_name}.json")
     
