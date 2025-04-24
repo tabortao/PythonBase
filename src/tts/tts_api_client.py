@@ -168,21 +168,21 @@ def text_file_to_speech(
     return result_path
 
 
-# 使用示例
-if __name__ == "__main__":
-    # uv run src\tts\tts_api_client.py
+def main():
+    """
+    主函数，用于批量处理文本文件转语音
+    """
+    # 记录开始时间
     start_time = time.time()
-    # 示例1：使用预设音色
-    book_name = "《贪心的小妖怪捉鲸鱼，声音的传播》"
     
     # 定义文本文件路径
-    text_file_path_1 = os.path.join("src","output", "book_polished",f"{book_name}_1.txt")
-    text_file_path_2 = os.path.join("src","output", "book_polished",f"{book_name}_2.txt")
-    text_file_path_3 = os.path.join("src","output", "book_polished",f"{book_name}_3.txt")
-    text_file_path_4 = os.path.join("src","output", "book_polished",f"{book_name}_4.txt")
-    
-    # 存储实际文本文件路径列表
-    text_files = [text_file_path_1, text_file_path_2, text_file_path_3, text_file_path_4]
+    text_files = [
+        os.path.join("src", "output", "book_polished", "《北方巫婆的礼物，天气的变化》.txt"),
+        os.path.join("src", "output", "book_polished", "《阿里巴巴和四十大盗》.txt"),
+        os.path.join("src", "output", "book_polished", "《重回大海的小海星，涨潮和退潮》.txt"),
+        os.path.join("src", "output", "book_polished", "《送信车坏了，力与交通工具》.txt"),
+        os.path.join("src", "output", "book_polished", "《发明家图图和查理的火山旅行，火山的奥秘》.txt")
+    ]
     
     # 检查文件是否存在
     existing_files = []
@@ -194,10 +194,10 @@ if __name__ == "__main__":
     
     if not existing_files:
         print("错误: 没有找到任何有效的文本文件!")
-        exit(1)
+        return
     
     # 输出目录
-    output_audio_path = os.path.join("src","output", "book_polished")
+    output_audio_path = os.path.join("src", "output", "audio")
     
     # 初始化客户端并打印可用音色，帮助调试
     client = TTSClient()
@@ -214,6 +214,9 @@ if __name__ == "__main__":
         base_name = os.path.splitext(file_name)[0]  # 获取不带扩展名的文件名
         output_file = os.path.join(output_audio_path, f"{base_name}.wav")
         
+        # 记录单个文件处理的开始时间
+        file_start_time = time.time()
+        
         try:
             # 读取文本内容
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -227,13 +230,61 @@ if __name__ == "__main__":
                 speed=1.0
             )
             
+            # 计算并显示单个文件处理时间
+            file_time = time.time() - file_start_time
+            
+            # 将秒转换为分钟和秒的格式
+            minutes = int(file_time // 60)
+            seconds = file_time % 60
+            
             print(f"已生成音频: {output_file}")
+            if minutes > 0:
+                print(f"文件处理耗时: {minutes}分{seconds:.2f}秒 (总计{file_time:.2f}秒)")
+            else:
+                print(f"文件处理耗时: {file_time:.2f}秒")
+            
+            # 计算每字符处理时间（可选）
+            chars_per_second = len(text_content) / file_time if file_time > 0 else 0
+            print(f"处理速度: {chars_per_second:.2f}字符/秒 (共{len(text_content)}字符)")
+            
+            # 添加分隔线，使输出更清晰
+            print("-" * 50)
+            
         except Exception as e:
+            # 即使出错也显示已用时间
+            file_time = time.time() - file_start_time
+            
+            # 将秒转换为分钟和秒的格式
+            minutes = int(file_time // 60)
+            seconds = file_time % 60
+            
             print(f"处理文件 {file_path} 时出错: {e}")
-    
-    # 打印结果路径
-    print(f"所有音频文件已保存到: {output_audio_path}")
+            if minutes > 0:
+                print(f"失败处理耗时: {minutes}分{seconds:.2f}秒 (总计{file_time:.2f}秒)")
+            else:
+                print(f"失败处理耗时: {file_time:.2f}秒")
+            print("-" * 50)
     
     # 计算总耗时
     total_time = time.time() - start_time
-    print(f"\n所有处理完成！总耗时: {total_time:.2f}秒")
+    
+    # 将总耗时转换为小时、分钟和秒的格式
+    total_hours = int(total_time // 3600)
+    total_minutes = int((total_time % 3600) // 60)
+    total_seconds = total_time % 60
+    
+    # 根据时间长短选择合适的显示格式
+    if total_hours > 0:
+        time_str = f"{total_hours}小时{total_minutes}分{total_seconds:.2f}秒"
+    elif total_minutes > 0:
+        time_str = f"{total_minutes}分{total_seconds:.2f}秒"
+    else:
+        time_str = f"{total_seconds:.2f}秒"
+    
+    print(f"\n所有处理完成！总耗时: {time_str} (总计{total_time:.2f}秒)")
+
+
+# 使用示例
+if __name__ == "__main__":
+    # uv run src\tts\tts_api_client.py
+    main()
