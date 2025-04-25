@@ -177,10 +177,9 @@ def main():
     
     # 定义文本文件路径
     text_files = [
-        os.path.join("src", "output", "book_polished", "《北方巫婆的礼物，天气的变化》.txt"),
-        os.path.join("src", "output", "book_polished", "《阿里巴巴和四十大盗》.txt"),
-        os.path.join("src", "output", "book_polished", "《重回大海的小海星，涨潮和退潮》.txt"),
-        os.path.join("src", "output", "book_polished", "《送信车坏了，力与交通工具》.txt"),
+        os.path.join("src", "output", "book_polished", "《穿靴子的猫》.txt"),
+        os.path.join("src", "output", "book_polished", "《造一个梦想的世界》.txt"),
+        os.path.join("src", "output", "book_polished", "《森林消失的绿岛，保护自然环境》.txt"),
         os.path.join("src", "output", "book_polished", "《发明家图图和查理的火山旅行，火山的奥秘》.txt")
     ]
     
