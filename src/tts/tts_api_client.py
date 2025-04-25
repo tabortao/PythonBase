@@ -177,12 +177,16 @@ def main():
     start_time = time.time()
     
     # 定义文本文件路径
+    # text_files = [
+    #     os.path.join("src", "output", "book_polished", "《穿靴子的猫》.txt"),
+    #     os.path.join("src", "output", "book_polished", "《造一个梦想的世界》.txt"),
+    #     os.path.join("src", "output", "book_polished", "《森林消失的绿岛，保护自然环境》.txt"),
+    #     os.path.join("src", "output", "book_polished", "《发明家图图和查理的火山旅行，火山的奥秘》.txt")
+    # ]
+    # 测试改动效果
     text_files = [
-        os.path.join("src", "output", "book_polished", "《穿靴子的猫》.txt"),
-        os.path.join("src", "output", "book_polished", "《造一个梦想的世界》.txt"),
-        os.path.join("src", "output", "book_polished", "《森林消失的绿岛，保护自然环境》.txt"),
-        os.path.join("src", "output", "book_polished", "《发明家图图和查理的火山旅行，火山的奥秘》.txt")
-    ]
+        os.path.join("src", "output", "book_polished", "txt_test.txt")
+    ]    
     
     # 检查文件是否存在
     existing_files = []
