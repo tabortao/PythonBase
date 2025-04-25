@@ -208,7 +208,7 @@ def main():
     
     for i, file_path in enumerate(existing_files):
         print(f"正在处理文件 {i+1}/{len(existing_files)}: {file_path}")
-        
+        print("模型处理时间较长，与电脑GPU能力相关，请耐心等待...")
         # 构建输出音频文件路径
         file_name = os.path.basename(file_path)
         base_name = os.path.splitext(file_name)[0]  # 获取不带扩展名的文件名
