@@ -2,6 +2,7 @@ import os
 import time
 from gradio_client import Client, handle_file
 from typing import Literal, Optional, Union
+from tqdm import tqdm
 
 class TTSClient:
     """
@@ -205,8 +206,9 @@ def main():
     # 批量处理文本文件
     print(f"开始处理 {len(existing_files)} 个文本文件...")
     
-    for i, file_path in enumerate(existing_files):
-        print(f"正在处理文件 {i+1}/{len(existing_files)}: {file_path}")
+    # 使用tqdm创建进度条
+    for i, file_path in enumerate(tqdm(existing_files, desc="处理进度", unit="文件")):
+        print(f"\n正在处理文件 {i+1}/{len(existing_files)}: {file_path}")
         print("模型处理时间较长，与电脑GPU能力相关，请耐心等待...")
         # 构建输出音频文件路径
         file_name = os.path.basename(file_path)
@@ -221,13 +223,19 @@ def main():
             with open(file_path, 'r', encoding='utf-8') as f:
                 text_content = f.read()
             
-            # 生成语音
-            result = client.text_to_speech(
-                text=text_content,
-                output_path=output_file,
-                voice_name="Lei.pt",
-                speed=1.0
-            )
+            # 创建文本处理进度条
+            with tqdm(total=len(text_content), desc="文本转语音", unit="字符") as pbar:
+                def progress_callback(current, total):
+                    pbar.update(current - pbar.n)
+                
+                # 生成语音
+                result = client.text_to_speech(
+                    text=text_content,
+                    output_path=output_file,
+                    voice_name="Lei.pt",
+                    speed=1.0
+                )
+                pbar.update(len(text_content) - pbar.n)  # 确保进度条完成
             
             # 计算并显示单个文件处理时间
             file_time = time.time() - file_start_time
