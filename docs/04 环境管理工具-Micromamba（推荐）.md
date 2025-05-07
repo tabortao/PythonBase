@@ -1,7 +1,7 @@
 
 **Micromamba** 是 [Mamba](https://mamba.readthedocs.io/en/latest/) 项目的一部分，它是 Conda 包管理器的一个轻量级、高效且快速的替代品。相比于传统的 Conda，Micromamba 提供了更小的安装体积和更快的性能，特别适合需要快速创建和管理虚拟环境的场景。
 
-详见[Micromamba简介](Micromamba简介.md)
+详见[Micromamba简介](Code工具基础\Micromamba简介.md)
 ## 安装与升级
 
 Windows Powershell安装
