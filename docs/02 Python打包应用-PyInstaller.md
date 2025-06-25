@@ -8,6 +8,23 @@ uv add pyinstaller打包应用
 uv add pyinstaller
 
 ```
+## pyinstaller打包命令
+```bash
+# 隐藏控制台窗口（正式发布用）：
+.venv\Scripts\activate # 激活环境
+pyinstaller -F -w --icon=app_icon.ico --name=OCRmyPDF --add-data ".venv/Lib/site-packages/customtkinter;customtkinter" --add-data ".venv/Lib/site-packages/ocrmypdf/data;ocrmypdf/data" OCRmyPDF/main.py
+
+# 显示控制台窗口（推荐调试时用）：
+pyinstaller -F --icon=app_icon.ico --name=OCRmyPDF --add-data ".venv/Lib/site-packages/customtkinter;customtkinter" --add-data ".venv/Lib/site-packages/ocrmypdf/data;ocrmypdf/data" OCRmyPDF/main.py
+
+# -F：生成单文件 exe
+# -w：无控制台窗口（适合 GUI 程序）
+# --icon=app_icon.ico：指定图标
+# --add-data 用于包含依赖的资源文件夹，Windows 下用分号 ; 分隔（Linux/macOS 用冒号 :）。
+# --name=OCRmyPDF：指定生成的 exe 文件名为 OCRmyPDF.exe
+# 电脑安装好upx，添加到环境变量，在运行pyinstaller打包是，会自动调用upx进行压缩，可以减少exe文件体积。
+```
+
 ## 编制脚本
 新建`build.spec`文件，代码如下：
 ```bash
